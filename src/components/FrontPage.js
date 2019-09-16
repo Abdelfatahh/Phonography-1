@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+//import { BrowserRouter as Router, Route } from "react-router-dom";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import Flippy, { FrontSide, BackSide } from "react-flippy";
 import "./Styles/frontPage.css";
+import axios from "axios";
 
 import {
   MDBContainer,
@@ -66,22 +68,26 @@ class FrontPage extends Component {
     });
   }
   Confirmation() {
-    // alert(
-    //   this.state.name +
-    //     " " +
-    //     this.state.email +
-    //     " " +
-    //     this.state.passVal +
-    //     " " +
-    //     this.state.confirmVal
-    // );
-
     if (!this.state.passVal || !this.state.confirmVal) {
       alert("Password field empty");
-    } else if (this.state.passVal != this.state.confirmVal) {
+    } else if (this.state.passVal !== this.state.confirmVal) {
       alert("Password mismatch");
     } else {
       alert("Confirmed");
+      const newUser = {
+        username: this.state.name,
+        Email: this.state.email,
+        Password: this.state.passVal,
+        Mobile: this.state.PhoneNum
+      };
+      console.log(newUser);
+      axios
+        .post(
+          " http://Api-env.pjxxtmeicp.us-east-2.elasticbeanstalk.com/users/add",
+          newUser
+        )
+        .then(res => console.log(res.data));
+      //window.location = "/";
     }
   }
   handleFlipping = id => () => {
@@ -110,24 +116,24 @@ class FrontPage extends Component {
                     </div>
                     <hr></hr>
                     <MDBInput
-                      required="true"
+                      //required="true"
                       label="Name"
                       onChange={this.onChangeName.bind(this)}
                       group
                       type="text"
-                      validate
-                      error="wrong"
-                      success="right"
+                      //  validate
+                      //  error="wrong"
+                      //  success="right"
                     />
                     <MDBInput
-                      required="true"
+                      //  required="true"
                       label="Email"
                       onChange={this.onChangeEmail.bind(this)}
                       group
                       type="Text"
-                      validate
-                      error="wrong"
-                      success="right"
+                      //  validate
+                      //  error="wrong"
+                      // success="right"
                     />
                     <MDBInput
                       label="Your password"
@@ -142,7 +148,7 @@ class FrontPage extends Component {
                       onChange={this.onChangeConfirm.bind(this)}
                       group
                       type="password"
-                      validate
+                      //  validate
                       containerClass="mb-0"
                     />
                     <MDBInput
@@ -150,7 +156,7 @@ class FrontPage extends Component {
                       onChange={this.onChangePhoneNum.bind(this)}
                       group
                       type="text"
-                      validate
+                      //  validate
                       containerClass="mb-0"
                     />
                     <div className="text-center mb-3 ">
@@ -199,7 +205,7 @@ class FrontPage extends Component {
                         className="btn-block z-depth-1a mb-3 "
                       >
                         Sign up with Google
-                        <i class="fab fa-google offset-2"></i>
+                        <i className="fab fa-google offset-2"></i>
                       </MDBBtn>
                       <MDBBtn
                         id="facebook"
@@ -208,7 +214,7 @@ class FrontPage extends Component {
                         className="btn-block z-depth-1a"
                       >
                         Sign up with Facebook
-                        <i class="fab fa-facebook-square offset-1"></i>
+                        <i className="fab fa-facebook-square offset-1"></i>
                       </MDBBtn>
                       <br></br>
 
@@ -218,16 +224,16 @@ class FrontPage extends Component {
                         onChange={this.onChangeLoginEmail.bind(this)}
                         group
                         type="Text"
-                        validate
-                        error="wrong"
-                        success="right"
+                        // validate
+                        // error="wrong"
+                        // success="right"
                       />
                       <MDBInput
                         label="Your password"
                         onChange={this.onChangeLoginPass.bind(this)}
                         group
                         type="password"
-                        validate
+                        //  validate
                         containerClass="mb-0"
                       />
 
@@ -236,7 +242,7 @@ class FrontPage extends Component {
                           id="login"
                           color="dark"
                           type="submit"
-                          onClick=""
+                          // onClick=""
                           className="btn-block z-depth-1a"
                         >
                           Login
